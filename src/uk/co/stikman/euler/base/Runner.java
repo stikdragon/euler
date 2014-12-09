@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import uk.co.stikman.euler.p6.P6;
+import uk.co.stikman.euler.problems.P6;
 
 public class Runner {
 	private static final int	MAX_PROBLEMS	= 1000;
@@ -29,7 +29,7 @@ public class Runner {
 		for (int i = 1; i < MAX_PROBLEMS; ++i) {
 			Class<? extends ProblemBase> cls;
 			try {
-				cls = (Class<? extends ProblemBase>) Class.forName("uk.co.stikman.euler.p" + i + ".P" + i);
+				cls = (Class<? extends ProblemBase>) Class.forName("uk.co.stikman.euler.problems.P" + i);
 				ProblemBase inst = cls.newInstance();
 				problems.add(inst);
 			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
@@ -58,6 +58,9 @@ public class Runner {
 							}
 						} catch (Throwable th) {
 							th.printStackTrace();
+							synchronized (results) {
+								results.put(p, "ERROR: " + th.toString());
+							}
 						}
 					}
 				}
