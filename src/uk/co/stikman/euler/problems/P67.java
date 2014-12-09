@@ -1,10 +1,5 @@
 package uk.co.stikman.euler.problems;
 
-import java.util.List;
-
-import uk.co.stikman.euler.base.ProblemBase;
-import uk.co.stikman.euler.resources.Resources;
-import uk.co.stikman.euler.utils.Utils;
 
 public class P67 extends P18 {
 

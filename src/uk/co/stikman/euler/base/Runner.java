@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import uk.co.stikman.euler.problems.P6;
-
 public class Runner {
 	private static final int	MAX_PROBLEMS	= 1000;
 	private static final int	THREAD_COUNT	= 8;

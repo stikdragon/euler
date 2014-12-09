@@ -14,7 +14,15 @@ public abstract class ProblemBase {
 		log(Long.toString(n));
 	}
 
+	protected void log(double d) {
+		log(Double.toString(d));
+	}
+
 	public int getId() {
 		return Integer.parseInt(getClass().getSimpleName().substring(1));
+	}
+	
+	public boolean isSlowRunning() {
+		return false;
 	}
 }

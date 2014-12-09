@@ -1,7 +1,6 @@
 package uk.co.stikman.euler.problems;
 
 import uk.co.stikman.euler.base.ProblemBase;
-import uk.co.stikman.euler.utils.Utils;
 
 public class P9 extends ProblemBase {
 

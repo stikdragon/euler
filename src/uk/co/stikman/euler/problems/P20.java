@@ -2,10 +2,7 @@ package uk.co.stikman.euler.problems;
 
 import java.math.BigInteger;
 
-import javax.management.RuntimeErrorException;
-
 import uk.co.stikman.euler.base.ProblemBase;
-import uk.co.stikman.euler.utils.Utils;
 
 public class P20 extends ProblemBase {
 
