@@ -1,6 +1,7 @@
 package uk.co.stikman.euler.problems;
 
 import uk.co.stikman.euler.base.ProblemBase;
+import uk.co.stikman.euler.utils.Utils;
 
 public class P4 extends ProblemBase {
 
@@ -20,21 +21,13 @@ public class P4 extends ProblemBase {
 		for (int i = 0; i < 1000; ++i) {
 			for (int j = 0; j < 1000; ++j) {
 				int n = i * j;
-				if (isPalindrome(n) && n > best)
+				if (Utils.isPalindrome(n) && n > best)
 					best = n;
 			}
 		}
 		return Long.toString(best);
 	}
 
-	private static boolean isPalindrome(int num) {
-		String s = Integer.toString(num);
-		int l = s.length();
-		for (int i = 0; i < l / 2; ++i)
-			if (s.charAt(i) != s.charAt(l - i - 1))
-				return false;
-		return true;
-	}
 
 	@Override
 	public String getName() {

@@ -24,7 +24,7 @@ public class Utils {
 
 	public static long[] calculateFactors(long n) {
 		List<Long> lst = new ArrayList<>();
-		for (long i = 1; i < n / 2; ++i)
+		for (long i = 1; i <= n / 2; ++i)
 			if (n % i == 0)
 				lst.add(i);
 		long[] res = new long[lst.size()];
@@ -57,5 +57,18 @@ public class Utils {
 				sb.append(array[i]).append(", ");
 		}
 		return sb.toString();
+	}
+
+	public static boolean isPalindrome(int num) {
+		return isPalindrome(num, 10);
+	}
+
+	public static boolean isPalindrome(int num, int radix) {
+		String s = Integer.toString(num, radix);
+		int l = s.length();
+		for (int i = 0; i < l / 2; ++i)
+			if (s.charAt(i) != s.charAt(l - i - 1))
+				return false;
+		return true;
 	}
 }

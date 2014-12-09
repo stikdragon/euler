@@ -1,13 +1,16 @@
 package uk.co.stikman.euler.problems;
 
 import uk.co.stikman.euler.base.ProblemBase;
-import uk.co.stikman.euler.utils.Utils;
 
 public class P31 extends ProblemBase {
 
 	public static void main(String[] args) {
 		System.out.println(new P31().run());
 	}
+
+	private int		values[]	= { 200, 100, 50, 20, 10, 5, 2, 1 };
+	private int[]	counts;
+	private int		count;
 
 	/**
 	 * <pre>
@@ -22,40 +25,29 @@ public class P31 extends ProblemBase {
 	 */
 	@Override
 	public String run() {
-		int values[] = { 100, 50, 20, 10, 5, 2, 1 };
-		int counts[] = new int[values.length];
+		counts = new int[values.length];
 		for (int i = 0; i < values.length; ++i)
 			counts[i] = (200 / values[i]) + 1;
-		log("counts: " + Utils.arrayToString(counts));
-		long permcount = 1;
-		for (int i = 0; i < values.length; ++i)
-			permcount *= counts[i];
-		int count = 1; // start at 1 for the single case of 1x200
-		for (long perm = 0; perm < permcount; ++perm) {
-			long cur = perm;
-			int sum = 0;
-			for (int i = 0; i < values.length; ++i) {
-				long c = cur % counts[i];
-				sum += (c * values[i]);
-				cur /= counts[i];
-			}
-			if (sum == 200)
-				++count;
-			if (perm % 10000000 == 0)
-				log((int) (100.0 * perm / permcount) + "%");
-		}
+		count = 0;
+		calc(0, 0);
 		return Long.toString(count);
+	}
+
+	private void calc(int coin, int total) {
+		if (coin == values.length) {
+			if (total == 200)
+				++count;
+		} else {
+			if (total > 200)
+				return;
+			for (int i = 0; i < counts[coin]; ++i)
+				calc(coin + 1, total + i * values[coin]);
+		}
 	}
 
 	@Override
 	public String getName() {
 		return "Coin sums";
 	}
-	
-	@Override
-	public boolean isSlowRunning() {
-		return true;
-	}
-
 
 }

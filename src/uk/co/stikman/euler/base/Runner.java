@@ -33,7 +33,7 @@ public class Runner {
 			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			}
 		}
-		Map<ProblemBase, String> results = new HashMap<>();
+		Map<ProblemBase, ProblemResult> results = new HashMap<>();
 
 		final List<ProblemBase> pending = new ArrayList<>(problems);
 
@@ -49,16 +49,22 @@ public class Runner {
 								break;
 							p = pending.remove(0);
 						}
+						ProblemResult pr = null;
 						try {
 							System.out.println("Running (" + p.getId() + ") " + p.getName() + "...");
+							pr = new ProblemResult(p);
 							synchronized (results) {
-								results.put(p, p.run());
+								results.put(p, pr);
 							}
+							
+							long start = System.nanoTime();
+							pr.setResult(p.run());
+							long dt = System.nanoTime() - start;
+							pr.setTime((double)dt / 1000000000.0);
 						} catch (Throwable th) {
 							th.printStackTrace();
-							synchronized (results) {
-								results.put(p, "ERROR: " + th.toString());
-							}
+							if (pr != null)
+								pr.setError(th);
 						}
 					}
 				}
@@ -80,7 +86,11 @@ public class Runner {
 		System.out.println("Finished!  Solutions:");
 		System.out.println("======================");
 		for (ProblemBase pb : problems) {
-			System.out.println("(" + pb.getId() + ") " + pb.getName() + " == " + results.get(pb));
+			ProblemResult pr = results.get(pb);
+			if (pr.getError() != null)
+				System.err.println(pr.toString());
+			else
+				System.out.println(pr.toString());
 		}
 
 	}
