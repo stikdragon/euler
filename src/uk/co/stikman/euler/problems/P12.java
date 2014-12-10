@@ -1,6 +1,13 @@
 package uk.co.stikman.euler.problems;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import uk.co.stikman.euler.base.ProblemBase;
+import uk.co.stikman.euler.utils.LongList;
+import uk.co.stikman.euler.utils.MutableInteger;
+import uk.co.stikman.euler.utils.Utils;
 
 public class P12 extends ProblemBase {
 
@@ -30,25 +37,43 @@ public class P12 extends ProblemBase {
 	 */
 	@Override
 	public String run() {
-		throw new RuntimeException("Unsolved");
-		/*long sum = 2 * 3 * 5 * 7 * 11 * 13 * 17 * 23 * 31;
 		LongList list = new LongList();
-		Utils.calculateFactors(sum, list);
-		log(list.toString());
+		long sum = 1;
+		int idx = 1;
+		Map<Long, MutableInteger> map = new HashMap<>();
+		while (true) {
+			list.clear();
+			Utils.calculatePrimeFactors(sum, list);
+			clearMap(map);
+			for (int i = 0; i < list.size(); ++i) 
+				addMap(map, list.get(i));
+			int cnt = 1;
+			for (Entry<Long, MutableInteger> e : map.entrySet()) 
+				if (e.getValue().getVal() > 0)
+					cnt *= (e.getValue().getVal()+1);
+			
+		//	log(sum + " - " + list.size());
+			if (cnt >= 500)
+				return Long.toString(sum);
+			++idx;
+			sum += idx;
+		}
 
-		sum += 1;
-		list.clear();
-		Utils.calculateFactors(sum, list);
-		log(list.toString());
+	}
 
-		long tri = (sum * (sum + 1)) / 2;
-		log(tri);*/
-		/*
-		 * int idx = 1; while (true) { list.clear(); Utils.calculateFactors(sum,
-		 * list); log(sum + " - " + list.size()); if (list.size() > 500) return
-		 * Long.toString(sum); ++idx; sum += idx; }
-		 */
-		//return Long.toString(tri);
+	private static void addMap(Map<Long, MutableInteger> map, long l) {
+		MutableInteger mi = map.get(l);
+		if (mi == null) {
+			mi = new MutableInteger(1);
+			map.put(l, mi);
+		} else {
+			mi.inc();
+		}
+	}
+
+	private static void clearMap(Map<Long, MutableInteger> map) {
+		for (Entry<Long, MutableInteger> e : map.entrySet())
+			e.getValue().setVal(0);
 	}
 
 	@Override

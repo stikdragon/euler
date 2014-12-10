@@ -1,5 +1,6 @@
 package uk.co.stikman.euler.utils;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,15 @@ public class Utils {
 				output.add(i);
 	}
 
+	public static void calculatePrimeFactors(long n, LongList output) {
+		for (int i = 2; i <= n; i++) {
+			while (n % i == 0) {
+				output.add(i);
+				n /= i;
+			}
+		}
+	}
+
 	public static int[] stringsToIntArray(String input, String separator) {
 		String[] x = input.split(separator);
 		int[] res = new int[x.length];
@@ -70,5 +80,13 @@ public class Utils {
 			if (s.charAt(i) != s.charAt(l - i - 1))
 				return false;
 		return true;
+	}
+
+	public static BigInteger factorial(BigInteger n) {
+		long a = n.longValueExact();
+		BigInteger res = n;
+		while (a-- > 1) 
+			res = res.multiply(BigInteger.valueOf(a));
+		return res;
 	}
 }
